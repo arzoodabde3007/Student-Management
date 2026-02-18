@@ -1,9 +1,10 @@
 package com.example.springproject.studentmanagement.controller;
 
 import com.example.springproject.studentmanagement.Entities.Student;
-import com.example.springproject.studentmanagement.dto.StudentDTO;
+import com.example.springproject.studentmanagement.dto.StudentResponseDTO;
 import com.example.springproject.studentmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,35 +18,38 @@ public class StudentController {
 
     //Read all
     @GetMapping("/getStudents")
-    public List<Student> getAllStudent(){
-        return studentService.getAllStudent();
+    public ResponseEntity<List<StudentResponseDTO>> getAllStudent(){
+        return ResponseEntity.ok(studentService.getAllStudent());
     }
 
     // Read Student by ID
     @GetMapping("/studentById/")
-    public StudentDTO getStudentDTOById(@RequestParam(name = "studentID") Long studentId ){
-        Student student = studentService.getStudentById(studentId);
+    public ResponseEntity<StudentResponseDTO> getStudentDTOById(@RequestParam(name = "studentID") Long studentId ){
 
-        StudentDTO studentDTO = new StudentDTO();
-        return studentDTO.studentMapper(student);
+        Student student = studentService.getStudentById(studentId);
+        StudentResponseDTO studentDTO = new StudentResponseDTO();
+         return ResponseEntity.ok(studentDTO.studentMapper(student));
     }
 
     // Create
     @PostMapping("/addStudents")
-    public Student addStudents(@RequestBody Student student){
-        return studentService.addStudent(student);
+    public ResponseEntity<StudentResponseDTO> addStudents(@RequestBody Student student){
+        student.setStudentId(0);
+         Student insertedStudent = studentService.addStudent(student);
+        StudentResponseDTO studentDTO = new StudentResponseDTO();
+         return ResponseEntity.ok(studentDTO.studentMapper(insertedStudent));
     }
 
     // Update Student
     @PutMapping("/updateStudent/")
-    public Student updateStudent(@RequestParam Long id, @RequestBody Student student) {
-        return studentService.updateStudent(id, student);
+    public ResponseEntity<Student> updateStudent(@RequestParam Long id, @RequestBody Student student) {
+        return ResponseEntity.ok(studentService.updateStudent(id, student));
     }
 
     // Delete Student
     @DeleteMapping("/deleteStudent/")
-    public String deleteStudent(@RequestParam Long id){
-         studentService.deleteStudents(id);
-         return "student deleted";
+    public ResponseEntity<String> deleteStudent(@RequestParam Long studentId){
+         studentService.deleteStudents(studentId);
+         return ResponseEntity.ok("Student Deleted");
     }
 }

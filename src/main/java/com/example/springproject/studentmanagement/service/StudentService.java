@@ -1,13 +1,12 @@
 package com.example.springproject.studentmanagement.service;
 
 import com.example.springproject.studentmanagement.Entities.Student;
-import com.example.springproject.studentmanagement.dto.StudentDTO;
+import com.example.springproject.studentmanagement.dto.StudentResponseDTO;
 import com.example.springproject.studentmanagement.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -16,8 +15,14 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     // get all students
-    public List<Student> getAllStudent(){
-        return studentRepository.findAll();
+    public List<StudentResponseDTO> getAllStudent(){
+        List<Student> students = studentRepository.findAll();
+
+        List<StudentResponseDTO> studentResponseDTOList = students.stream()
+                .map(student -> new StudentResponseDTO().studentMapper(student))
+                .toList();
+        return studentResponseDTOList;
+
     }
 
     // Add student
@@ -42,7 +47,9 @@ public class StudentService {
 
     // delete student
     public void deleteStudents(Long id){
-        Student student = studentRepository.findById(id).get();
+        Student student = studentRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Student not found")
+        );
         studentRepository.deleteById(id);
     }
 
