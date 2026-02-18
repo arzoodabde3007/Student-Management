@@ -37,13 +37,13 @@ public class StudentController {
     }
 
     // Update Student
-    @PutMapping("/updateStudent/{id}")
-    public String updateStudent(@RequestParam Long id){
-        return "Student updated";
+    @PutMapping("/updateStudent/")
+    public Student updateStudent(@RequestParam Long id, @RequestBody Student student) {
+        return studentService.updateStudent(id, student);
     }
 
     // Delete Student
-    @DeleteMapping("/deleteStudent/{id}")
+    @DeleteMapping("/deleteStudent/")
     public String deleteStudent(@RequestParam Long id){
          studentService.deleteStudents(id);
          return "student deleted";
