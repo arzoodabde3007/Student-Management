@@ -14,17 +14,19 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long studentId;
+    private Long studentId;
 
     private String studentName;
     private String email;
     private String password;
 
-    private String course;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-//    @ManyToOne
-//    @JoinColumn(name="student_id")
-//    private Course course;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 
 }

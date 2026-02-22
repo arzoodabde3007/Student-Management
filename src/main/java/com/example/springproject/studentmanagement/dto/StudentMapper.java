@@ -12,6 +12,7 @@ public class StudentMapper {
         student.setEmail(studentDTO.getEmail());
         student.setPassword(studentDTO.getPassword());
         student.setCourse(studentDTO.getCourse());
+        student.setAddress(studentDTO.getAddress());
 
         return student;
     }
@@ -22,6 +23,7 @@ public class StudentMapper {
         responseDTO.setStudentName(student.getStudentName());
         responseDTO.setEmail(student.getEmail());
         responseDTO.setCourse(student.getCourse());
+        responseDTO.setAddress(student.getAddress());
         return responseDTO;
     }
 }

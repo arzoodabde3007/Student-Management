@@ -1,13 +1,12 @@
 package com.example.springproject.studentmanagement.controller;
 
-import com.example.springproject.studentmanagement.Entities.Student;
-import com.example.springproject.studentmanagement.dto.StudentMapper;
 import com.example.springproject.studentmanagement.dto.StudentRequestDTO;
 import com.example.springproject.studentmanagement.dto.StudentResponseDTO;
 import com.example.springproject.studentmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -34,8 +33,9 @@ public class StudentController {
 
     // Create
     @PostMapping
-    public ResponseEntity<StudentResponseDTO> addStudents(@RequestBody StudentRequestDTO studentRequestDTO){
-        return ResponseEntity.ok(studentService.addStudent(studentRequestDTO));
+    public ResponseEntity<StudentResponseDTO> addStudents(@RequestBody StudentRequestDTO studentRequestDTO,
+                                                         @RequestParam Long addressId,  @RequestParam Long courseId){
+        return ResponseEntity.ok(studentService.addStudent(studentRequestDTO, courseId, addressId));
     }
 
     // Update Student
