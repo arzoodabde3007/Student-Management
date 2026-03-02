@@ -1,6 +1,10 @@
 package com.example.springproject.studentmanagement.service;
 
 import com.example.springproject.studentmanagement.Entities.Address;
+import com.example.springproject.studentmanagement.dto.AddressMapper;
+import com.example.springproject.studentmanagement.dto.AddressRequestDTO;
+import com.example.springproject.studentmanagement.dto.AddressResponseDTO;
+import com.example.springproject.studentmanagement.dto.StudentMapper;
 import com.example.springproject.studentmanagement.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,27 +14,37 @@ import java.util.List;
 public class AddressService {
 
     private final AddressRepository addressRepository;
+    private final AddressMapper addressMapper;
 
-    public AddressService(AddressRepository addressRepository){
+    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper){
         this.addressRepository = addressRepository;
+        this.addressMapper = addressMapper;
     }
 
-    public Address createAddress(Address address){
-        return addressRepository.save(address);
+    public AddressResponseDTO createAddress(AddressRequestDTO addressDTO){
+        Address address = addressMapper.addressRequestDTOToEntity(addressDTO);
+        return addressMapper.entityToAddressResponseDTO(addressRepository.save(address));
     }
 
-    public List<Address> getAddress(){
-        return addressRepository.findAll();
+    public List<AddressResponseDTO> getAddress(){
+        List<Address> addresses =  addressRepository.findAll();
+        List<AddressResponseDTO> responseAddresses =  addresses.stream()
+                .map(addressMapper::entityToAddressResponseDTO)
+                .toList();
+
+        return responseAddresses;
+
     }
 
-    public Address getAddressById(Long addressId){
-        return addressRepository.findById(addressId)
+    public AddressResponseDTO getAddressById(Long addressId){
+        Address address =  addressRepository.findById(addressId)
                 .orElseThrow(
                         () -> new RuntimeException("Address not present")
                 );
+        return addressMapper.entityToAddressResponseDTO(address);
     }
 
-    public Address updateAddress(Long addressId, Address updatedAddress){
+    public AddressResponseDTO updateAddress(Long addressId, AddressRequestDTO updatedAddress){
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(
                         () -> new RuntimeException("Address not found")
@@ -41,9 +55,8 @@ public class AddressService {
         address.setState(updatedAddress.getState());
         address.setPincode(updatedAddress.getPincode());
 
-        return addressRepository.save(address);
+        Address savedAddress =  addressRepository.save(address);
+
+        return addressMapper.entityToAddressResponseDTO(savedAddress);
     }
-
-
-
 }

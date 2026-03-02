@@ -3,10 +3,10 @@ package com.example.springproject.studentmanagement.controller;
 import com.example.springproject.studentmanagement.dto.StudentRequestDTO;
 import com.example.springproject.studentmanagement.dto.StudentResponseDTO;
 import com.example.springproject.studentmanagement.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -26,16 +26,15 @@ public class StudentController {
     // Read Student by ID
     @GetMapping("/{studentId}")
     public ResponseEntity<StudentResponseDTO> getStudentDTOById(@PathVariable Long studentId ){
-
-        System.out.println("Calling service");
          return ResponseEntity.ok(studentService.getStudentById(studentId));
     }
 
     // Create
     @PostMapping
-    public ResponseEntity<StudentResponseDTO> addStudents(@RequestBody StudentRequestDTO studentRequestDTO,
-                                                         @RequestParam Long addressId,  @RequestParam Long courseId){
-        return ResponseEntity.ok(studentService.addStudent(studentRequestDTO, courseId, addressId));
+    public ResponseEntity<StudentResponseDTO> createStudent(
+            @Valid @RequestBody StudentRequestDTO studentRequestDTO
+    ){
+        return ResponseEntity.ok(studentService.addStudent(studentRequestDTO));
     }
 
     // Update Student

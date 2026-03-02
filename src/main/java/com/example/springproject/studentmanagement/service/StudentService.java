@@ -9,10 +9,9 @@ import com.example.springproject.studentmanagement.dto.StudentResponseDTO;
 import com.example.springproject.studentmanagement.exceptions.StudentNotFoundException;
 import com.example.springproject.studentmanagement.repository.AddressRepository;
 import com.example.springproject.studentmanagement.repository.CourseRepository;
-import com.example.springproject.studentmanagement.repository.DepartmentRepository;
 import com.example.springproject.studentmanagement.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,21 +42,23 @@ public class StudentService {
     }
 
     // Add student
-    public StudentResponseDTO addStudent(StudentRequestDTO studentRequestDTO, Long courseId, Long addressId){
+    @Transactional
+    public StudentResponseDTO addStudent(StudentRequestDTO studentRequestDTO){
 
-        Course course = courseRepository.findById(courseId).orElseThrow(
+        Course course = courseRepository.findById(studentRequestDTO.getCourseId()).orElseThrow(
                 () -> new RuntimeException("Course doesn't exist")
         );
+
         System.out.println(course);
 
-        Address address = addressRepository.findById(addressId)
+        Address address = addressRepository.findById(studentRequestDTO.getAddressId())
                 .orElseThrow(
                         () -> new RuntimeException("Address doesn't exist")
                 );
-        System.out.println(address);
-        studentRequestDTO.setCourse(course);
-        studentRequestDTO.setAddress(address);
+
         Student student = StudentMapper.requestDTOToEntity(studentRequestDTO);
+        student.setCourse(course);
+        student.setAddress(address);
         Student savedStudent = studentRepository.save(student);
         return StudentMapper.studentEntityToResponse(savedStudent);
     }
@@ -71,7 +72,6 @@ public class StudentService {
 
         student.setStudentName(updatedStudent.getStudentName());
         student.setEmail(updatedStudent.getEmail());
-//        student.setCourse(updatedStudent.getCourse());
         student.setPassword(updatedStudent.getPassword());
 
         Student savedStudent = studentRepository.save(student);

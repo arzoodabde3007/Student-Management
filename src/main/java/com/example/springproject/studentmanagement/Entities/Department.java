@@ -2,6 +2,7 @@ package com.example.springproject.studentmanagement.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
@@ -17,9 +18,9 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long departmentId;
 
+    @NotBlank(message = "Department name is required")
     private String departmentName;
 
     @OneToMany(mappedBy = "department" , cascade = CascadeType.ALL)
     private List<Course> courses;
-
 }

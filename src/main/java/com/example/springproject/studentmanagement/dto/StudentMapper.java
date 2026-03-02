@@ -1,19 +1,17 @@
 package com.example.springproject.studentmanagement.dto;
 
 
+import com.example.springproject.studentmanagement.Entities.Address;
 import com.example.springproject.studentmanagement.Entities.Student;
 
 public class StudentMapper {
 
-    public static Student requestDTOToEntity(StudentRequestDTO studentDTO){
+    public static Student requestDTOToEntity(StudentRequestDTO studentRequestDTO){
 
         Student student = new Student();
-        student.setStudentName(studentDTO.getStudentName());
-        student.setEmail(studentDTO.getEmail());
-        student.setPassword(studentDTO.getPassword());
-        student.setCourse(studentDTO.getCourse());
-        student.setAddress(studentDTO.getAddress());
-
+        student.setStudentName(studentRequestDTO.getStudentName());
+        student.setEmail(studentRequestDTO.getEmail());
+        student.setPassword(studentRequestDTO.getPassword());
         return student;
     }
 
@@ -26,4 +24,5 @@ public class StudentMapper {
         responseDTO.setAddress(student.getAddress());
         return responseDTO;
     }
+
 }
