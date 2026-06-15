@@ -1,10 +1,9 @@
 package com.example.springproject.studentmanagement.service;
 
 import com.example.springproject.studentmanagement.Entities.Address;
-import com.example.springproject.studentmanagement.dto.AddressMapper;
+import com.example.springproject.studentmanagement.mappers.AddressMapper;
 import com.example.springproject.studentmanagement.dto.AddressRequestDTO;
 import com.example.springproject.studentmanagement.dto.AddressResponseDTO;
-import com.example.springproject.studentmanagement.dto.StudentMapper;
 import com.example.springproject.studentmanagement.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 

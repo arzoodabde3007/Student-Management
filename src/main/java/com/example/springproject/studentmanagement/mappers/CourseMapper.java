@@ -1,7 +1,9 @@
-package com.example.springproject.studentmanagement.dto;
+package com.example.springproject.studentmanagement.mappers;
 
 import com.example.springproject.studentmanagement.Entities.Course;
 import com.example.springproject.studentmanagement.Entities.Department;
+import com.example.springproject.studentmanagement.dto.CourseRequestDTO;
+import com.example.springproject.studentmanagement.dto.CourseResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +13,7 @@ public class CourseMapper {
         Course course = new Course();
         course.setCourseName(courseRequestDTO.getCourseName());
         course.setCourseHOD(courseRequestDTO.getCourseHOD());
-
+        course.setDepartment(department);
         return course;
     }
 
@@ -20,7 +22,9 @@ public class CourseMapper {
 
         courseResponseDTO.setCourseName(course.getCourseName());
         courseResponseDTO.setCourseHOD(course.getCourseHOD());
-        courseResponseDTO.setDepartmentName(course.getDepartment().getDepartmentName());
+        if(course.getDepartment() != null){
+            courseResponseDTO.setDepartmentName(course.getDepartment().getDepartmentName());
+        }
         return courseResponseDTO;
     }
 }

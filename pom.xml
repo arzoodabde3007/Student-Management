@@ -54,10 +54,11 @@
 			<optional>true</optional>
 		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -86,6 +87,7 @@
 	</dependencies>
 
 	<build>
+        <finalName>student-management</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

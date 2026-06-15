@@ -1,9 +1,7 @@
 package com.example.springproject.studentmanagement.controller;
 
-import com.example.springproject.studentmanagement.Entities.Address;
 import com.example.springproject.studentmanagement.dto.AddressRequestDTO;
 import com.example.springproject.studentmanagement.dto.AddressResponseDTO;
-import com.example.springproject.studentmanagement.dto.StudentMapper;
 import com.example.springproject.studentmanagement.service.AddressService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

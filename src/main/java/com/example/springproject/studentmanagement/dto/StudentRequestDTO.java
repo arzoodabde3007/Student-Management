@@ -1,8 +1,5 @@
 package com.example.springproject.studentmanagement.dto;
 
-import com.example.springproject.studentmanagement.Entities.Address;
-import com.example.springproject.studentmanagement.Entities.Course;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

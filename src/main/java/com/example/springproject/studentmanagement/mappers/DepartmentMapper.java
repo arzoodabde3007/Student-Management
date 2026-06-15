@@ -1,6 +1,8 @@
-package com.example.springproject.studentmanagement.dto;
+package com.example.springproject.studentmanagement.mappers;
 
 import com.example.springproject.studentmanagement.Entities.Department;
+import com.example.springproject.studentmanagement.dto.DepartmentRequestDTO;
+import com.example.springproject.studentmanagement.dto.DepartmentResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component

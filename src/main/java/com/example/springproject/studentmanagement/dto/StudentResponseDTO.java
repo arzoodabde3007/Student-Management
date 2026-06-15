@@ -13,7 +13,7 @@ public class StudentResponseDTO {
     private String studentName;
     private String email;
     private Course course;
-    private Address address;
+    private AddressResponseDTO address;
 
 
 }

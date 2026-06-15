@@ -1,11 +1,11 @@
 package com.example.springproject.studentmanagement.Entities;
 
+import com.example.springproject.studentmanagement.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -24,11 +24,14 @@ public class Student {
     private String email;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.ROLE_USER;
+
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 }

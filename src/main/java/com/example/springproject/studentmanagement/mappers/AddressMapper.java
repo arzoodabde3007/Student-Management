@@ -1,6 +1,8 @@
-package com.example.springproject.studentmanagement.dto;
+package com.example.springproject.studentmanagement.mappers;
 
 import com.example.springproject.studentmanagement.Entities.Address;
+import com.example.springproject.studentmanagement.dto.AddressRequestDTO;
+import com.example.springproject.studentmanagement.dto.AddressResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +13,6 @@ public class AddressMapper {
         address.setCity(addressRequestDTO.getCity());
         address.setState(addressRequestDTO.getState());
         address.setPincode(addressRequestDTO.getPincode());
-
         return address;
     }
 

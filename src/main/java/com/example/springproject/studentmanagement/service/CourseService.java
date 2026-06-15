@@ -2,17 +2,18 @@ package com.example.springproject.studentmanagement.service;
 
 import com.example.springproject.studentmanagement.Entities.Course;
 import com.example.springproject.studentmanagement.Entities.Department;
-import com.example.springproject.studentmanagement.dto.CourseMapper;
+import com.example.springproject.studentmanagement.mappers.CourseMapper;
 import com.example.springproject.studentmanagement.dto.CourseRequestDTO;
 import com.example.springproject.studentmanagement.dto.CourseResponseDTO;
-import com.example.springproject.studentmanagement.dto.DepartmentMapper;
 import com.example.springproject.studentmanagement.repository.CourseRepository;
 import com.example.springproject.studentmanagement.repository.DepartmentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class CourseService {
 
     private final CourseRepository courseRepository;
@@ -28,6 +29,7 @@ public class CourseService {
     // Add course
     public CourseResponseDTO createCourse(CourseRequestDTO courseRequestDTO){
 
+        log.info("Add courses in the database.");
         Department department = departmentRepository.findById(courseRequestDTO.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("Department not found"));
 
@@ -45,7 +47,7 @@ public class CourseService {
         return courseResponseDTOS;
     }
 
-    // Get course by Id
+    // Get course by ID
     public CourseResponseDTO getCourseById(Long courseId){
         Course course =  courseRepository.findById(courseId)
                 .orElseThrow(
@@ -57,6 +59,7 @@ public class CourseService {
 
     // Delete course By id
     public String deleteCourse(Long courseId){
+        log.warn("Course get deleted from database");
         courseRepository.deleteById(courseId);
         return "Course removed from database";
     }
@@ -68,7 +71,6 @@ public class CourseService {
         List<CourseResponseDTO> courseResponseDTOS = courses.stream()
                 .map(courseMapper::entityToResponseDTO)
                 .toList();
-
         return courseResponseDTOS;
     }
 
@@ -88,7 +90,5 @@ public class CourseService {
 
         Course savedCourse  = courseRepository.save(course);
         return courseMapper.entityToResponseDTO(savedCourse);
-
-
     }
 }

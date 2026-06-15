@@ -1,8 +1,7 @@
 package com.example.springproject.studentmanagement.service;
 
 import com.example.springproject.studentmanagement.Entities.Department;
-import com.example.springproject.studentmanagement.dto.AddressResponseDTO;
-import com.example.springproject.studentmanagement.dto.DepartmentMapper;
+import com.example.springproject.studentmanagement.mappers.DepartmentMapper;
 import com.example.springproject.studentmanagement.dto.DepartmentResponseDTO;
 import com.example.springproject.studentmanagement.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;

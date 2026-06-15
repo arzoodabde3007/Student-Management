@@ -21,10 +21,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer courseId;
 
-    @NotBlank(message = "Course name required")
     private String courseName;
 
-    @NotBlank(message = "Course HOD is required")
+
     private String courseHOD;
 
     @ManyToOne
